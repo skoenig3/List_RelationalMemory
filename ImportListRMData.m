@@ -41,7 +41,15 @@ if length(block_1) > 1 %file accidentally appended
 end
 
 %---Import Item/Condition file informoation---%
-[itmlist,clrchng_locations,first_img_item,imgs] = read_ListRM_itm_and_cnd_files(item_set);
+%wrong CND file loaded for these sets. CND file determines calibration
+%trial order not which images are displayed that is the item file
+if strcmpi(cortexfile(end-9:end),'PW160325.2') || strcmpi(cortexfile(end-9:end),'PW160329.2')
+    cnd_file = 'ListRM01.cnd';
+else
+    cnd_file = [item_set(1:end-4) '.cnd'];
+end
+
+[itmlist,clrchng_locations,first_img_item,imgs] = read_ListRM_itm_and_cnd_files(item_set,cnd_file);
 
 %---Get the calibration for the eye data---%
 %essentially the same as all other task's we use

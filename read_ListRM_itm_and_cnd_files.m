@@ -1,11 +1,11 @@
-function [itmlist,clrchng_locations,first_img_item,imgs] = read_ListRM_itm_and_cnd_files(itmfile)
+function [itmlist,clrchng_locations,first_img_item,imgs] = read_ListRM_itm_and_cnd_files(itmfile,cndfile)
 % writteen by Seth Konig May, 2015. Modified from read_ListSQ_itm_and_cnd_files.mat
 % Function imports item file and and grabs condition file to determine which items
 % are associated with which condition (itmlist) since conditions are randomly
 % organized. 
 
 ITMFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' itmfile];
-CNDFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' itmfile(1:end-4) '.cnd'];
+CNDFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' cndfile];
 
 itmfil=[];
 h =fopen(ITMFile);

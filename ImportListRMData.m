@@ -20,13 +20,15 @@ imageY = 600;
 samprate = 5;
 %---Import Cortex data file---%
 if strcmpi(cortexfile(1:2),'PW')
-    cortexfile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Vivian\' cortexfile];
+    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Vivian\' cortexfile];
 elseif strcmpi(cortexfile(1:2),'TT')
-    cortexfile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Timmy\' cortexfile];
+    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Timmy\' cortexfile];
 elseif strcmpi(cortexfile(1:2),'RR')
-    cortexfile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Red\' cortexfile];
+    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Red\' cortexfile];
 elseif strcmpi(cortexfile(1:2),'TO')
-    cortexfile = ['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Tobii\' cortexfile];
+    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Tobii\' cortexfile];
+elseif  strcmpi(cortexfile(1:2),'MF')
+     cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Manfred\' cortexfile];
 end
 
 [time_arr,event_arr,eog_arr,epp_arr,~,~]  = get_ALLdata(cortexfile);

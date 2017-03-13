@@ -45,7 +45,9 @@ end
 %---Import Item/Condition file informoation---%
 %wrong CND file loaded for these sets. CND file determines calibration
 %trial order not which images are displayed that is the item file
-if strcmpi(cortexfile(end-9:end),'PW160325.2') || strcmpi(cortexfile(end-9:end),'PW160329.2')
+if strcmpi(cortexfile(end-9:end),'PW160325.2') || strcmpi(cortexfile(end-9:end),'PW160329.2') ...
+|| strcmpi(cortexfile(end-9:end),'MF170120.2') || strcmpi(cortexfile(end-9:end),'MF170131.2') ...
+|| strcmpi(cortexfile(end-9:end),'MF170213.2')% || strcmpi(cortexfile(end-9:end),'TT150518.2')
     cnd_file = 'ListRM01.cnd';
 else
     cnd_file = [item_set(1:end-4) '.cnd'];
@@ -261,9 +263,13 @@ for trlop=1:size(per,2)
             pupildata{trlop} = trlepp(2:2:end); %epp for this trial
         else
             try
-                pupildata{trlop} = trlepp(2:2:2*floor(picend/samprate)-1);%odd indexes contains nothing but noise
+                pupildata{trlop} = trlepp(2:2:2*floor(picend/samprate-1));%odd indexes contains nothing but noise
             catch
-                error('Unknown reason EOG and pic duration do not line up')
+                try
+                   pupildata{trlop} = trlepp(2:2:2*floor(picend/samprate-2));%odd indexes contains nothing but noise
+                catch
+                    error('Unknown reason EOG and pic duration do not line up')
+                end
             end
         end
     end

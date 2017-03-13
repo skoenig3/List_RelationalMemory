@@ -23,8 +23,18 @@ nov_time_out = NaN(length(cortex_files),96); %time when first left
 rep_time_out = NaN(length(cortex_files),96); %time when first left
 nov_first_dur = NaN(length(cortex_files),96);
 rep_first_dur = NaN(length(cortex_files),96);
+which_monkey = [];
 for file = 1:length(cortex_files)
     load([data_dir cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat'])
+    if strcmpi( cortex_files{file}(1:2),'MF')
+          which_monkey = [which_monkey 1];
+    elseif strcmpi( cortex_files{file}(1:2),'PW')
+        which_monkey = [which_monkey 2];
+    elseif strcmpi( cortex_files{file}(1:2),'TO')
+        which_monkey = [which_monkey 3];
+    elseif strcmpi( cortex_files{file}(1:2),'RR')
+        which_monkey = [which_monkey 4];
+    end
     
     first_fix{file} = NaN(2,96);
     first_fix_location{1,file} = NaN(2,96);
@@ -334,7 +344,7 @@ dofill(t,all_novel_fix_durt(:,1:end)/1000,'blue',1,180)
 dofill(t,all_repeat_fix_durt(:,1:end)/1000,'red',1,180)
 hold off
 xlabel('Time from Image Onset (ms)')
-ylabel('Normalize Pupil Data (a.u.)')
+ylabel('Fixation Duration (ms)')
 set(gca,'Xtick',0:500:7000)
 set(gca,'XtickLabel',num2cell([0:500:7000]))
 legend('Novel Images','Repeat Images')

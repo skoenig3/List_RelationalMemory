@@ -1,7 +1,7 @@
 % test to see if ListRM was running correctly without a monkey present
 cd('C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\');
-data_dir = '\\research.wanprc.org\Research\Buffalo Lab\Cortex Data\Red\';
-[time_arr,event_arr,eog_arr,epp_arr,header,trialcount]  = get_ALLdata([data_dir 'RR160328.2']);
+data_dir = '\\towerexablox.wanprc.org\Buffalo\Cortex Data\Vivian\';
+[time_arr,event_arr,eog_arr,epp_arr,header,trialcount]  = get_ALLdata([data_dir 'PW150417.2']);
 
 ITMFile = 'C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\ListRM10.itm';
 CNDFile = 'C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\ListRM10.cnd';

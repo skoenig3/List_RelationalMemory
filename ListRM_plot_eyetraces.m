@@ -1,4 +1,5 @@
 % Written by Seth König 7/13/15
+% set(0,'DefaultFigureVisible','OFF');
 screen_size = get(0, 'ScreenSize');
 data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Cortex Data\';
 fixwin = 3.5; %size of the fixation window/2. Was a width of 7 dva
@@ -18,14 +19,14 @@ pause(10)
 %     'ListRM33.itm','ListRM34.itm','ListRM35.itm','ListRM36.itm',....
 %     'ListRM37.itm'};
 
-cortex_files = {'RR150423.2','RR150424.2','RR150427.2','RR150428.2','RR150429.2',...
-    'RR150430.2','RR150501.2','RR150504.2','RR150505.2','RR150506.2',...
-    'RR150507.2','RR150508.2','RR150511.2','RR150512.2','RR150513.2',...
-    'RR150515.2','RR150518.2','RR150519.2','RR150520.2','RR150521.2'};
-item_files = {'ListRM01.itm','ListRM02.itm','ListRM03.itm','ListRM04.itm','ListRM05.itm',...
-    'ListRM06.itm','ListRM07.itm','ListRM08.itm','ListRM09.itm','ListRM10.itm',...
-    'ListRM11.itm','ListRM12.itm','ListRM13.itm','ListRM14.itm','ListRM15.itm',...
-    'ListRM16.itm','ListRM17.itm','ListRM18.itm','ListRM19.itm','ListRM20.itm'};
+% cortex_files = {'RR150423.2','RR150424.2','RR150427.2','RR150428.2','RR150429.2',...
+%     'RR150430.2','RR150501.2','RR150504.2','RR150505.2','RR150506.2',...
+%     'RR150507.2','RR150508.2','RR150511.2','RR150512.2','RR150513.2',...
+%     'RR150515.2','RR150518.2','RR150519.2','RR150520.2','RR150521.2'};
+% item_files = {'ListRM01.itm','ListRM02.itm','ListRM03.itm','ListRM04.itm','ListRM05.itm',...
+%     'ListRM06.itm','ListRM07.itm','ListRM08.itm','ListRM09.itm','ListRM10.itm',...
+%     'ListRM11.itm','ListRM12.itm','ListRM13.itm','ListRM14.itm','ListRM15.itm',...
+%     'ListRM16.itm','ListRM17.itm','ListRM18.itm','ListRM19.itm','ListRM20.itm'};
 
 % cortex_files = {'TO150513.2','TO150514.2','TO150515.2','TO150518.2','TO150519.2',...
 %     'TO150520.2','TO150521.2','TO150522.2','TO150526.2','TO150527.2',...
@@ -44,6 +45,28 @@ item_files = {'ListRM01.itm','ListRM02.itm','ListRM03.itm','ListRM04.itm','ListR
 %     'ListRM06.itm','ListRM07.itm','ListRM08.itm','ListRM09.itm','ListRM10.itm',...
 %     'ListRM11.itm','ListRM12.itm','ListRM13.itm','ListRM14.itm','ListRM15.itm',...
 %     'ListRM17.itm'};
+% 
+% cortex_files = {'TO170404.2','TO170405.2','TO170406.2','TO170407.2',...
+%                 'TO170410.2','TO170411.2','TO170412.2','TO170414.2',...
+%                 'TO170419.2','TO170421.2','TO170425.2','TO170426.2',...
+%                 'TO170427.2','TO170428.2','TO170501.2'};
+% item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
+%               'ListRM26.itm','ListRM27.itm','ListRM28.itm','ListRM30.itm',...
+%               'ListRM33.itm','ListRM35.itm','ListRM36.itm','ListRM37.itm',...
+%               'ListRM38.itm','ListRM39.itm','ListRM40.itm'};
+
+% cortex_files = {'TT150515.2'};%,...
+% item_files = {'ListRM15.itm'};%,...
+
+cortex_files = {'TO170404.2','TO170405.2','TO170406.2','TO170407.2',...
+                'TO170410.2','TO170411.2','TO170412.2','TO170414.2',...
+                'TO170419.2','TO170421.2','TO170425.2','TO170426.2',...
+                'TO170427.2','TO170428.2','TO170501.2'};
+item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
+              'ListRM26.itm','ListRM27.itm','ListRM28.itm','ListRM30.itm',...
+              'ListRM33.itm','ListRM35.itm','ListRM36.itm','ListRM37.itm',...
+              'ListRM38.itm','ListRM39.itm','ListRM40.itm'};
+
 
 for file = 1:length(cortex_files)
     load([data_dir cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat'])
@@ -165,7 +188,8 @@ for file = 1:length(cortex_files)
             imag = imread([imgdir 'S' setzero num2str(setnum) 'I' imgzero num2str(img) '.bmp']);
             
             figure
-            subplot(4,4,[1,2,5,6])
+%             subplot(4,4,[1,2,5,6])
+            subplot(2,2,1)
             imshow(imag);
             hold on
             plot(nov_x,600-nov_y,'b');
@@ -181,7 +205,9 @@ for file = 1:length(cortex_files)
             axis off
             title('Novel')
             
-            subplot(4,4,[3,4,7,8])
+%             subplot(4,4,[3,4,7,8])
+            subplot(2,2,2)
+
             imshow(imag);
             hold on
             plot(rep_x,600-rep_y,'b');
@@ -197,7 +223,9 @@ for file = 1:length(cortex_files)
             axis off
             title('Repeat')
             
-            subplot(4,4,[9 13])
+%             subplot(4,4,[9 13])
+            subplot(2,2,3)
+
             plot(nov_x,'b');
             hold on
             for s = 1:size(nov_sactimes,2)
@@ -210,7 +238,9 @@ for file = 1:length(cortex_files)
             axis off
             title('Novel')
             
-            subplot(4,4,[12 16])
+            %subplot(4,4,[12 16])
+                        subplot(2,2,4)
+
             plot(rep_x,'b');
                         hold on
             for s = 1:size(rep_sactimes,2)
@@ -223,17 +253,17 @@ for file = 1:length(cortex_files)
             axis off
             title('repeat')
             
-            subplot(4,4,[14:15])
-            plot(nov_fixtimes(2,:)-nov_fixtimes(1,:)+1,'b')
-            hold on
-            plot(rep_fixtimes(2,:)-rep_fixtimes(1,:)+1,'r')
-            hold off
-            ylim([50 500])
+%             subplot(4,4,[14:15])
+%             plot(nov_fixtimes(2,:)-nov_fixtimes(1,:)+1,'b')
+%             hold on
+%             plot(rep_fixtimes(2,:)-rep_fixtimes(1,:)+1,'r')
+%             hold off
+%             ylim([50 500])
             
-            subtitle(['LisRM image# ' num2str(img) ' ' cortex_files{1}(1:2)]);
-            set(gcf, 'Position', [0 0 screen_size(3) screen_size(4)]);
-            close
-            %save_and_close_fig(figure_dir,['ListRM_' cortex_files{1}(1:2) '_' num2str(setnum) '_' num2str(img)])
+            subtitle(['ListRM image# ' num2str(img) ' ' cortex_files{1}(1:2)]);
+%             set(gcf, 'Position', [0 0 screen_size(3) screen_size(4)]);
+            %close
+            save_and_close_fig(figure_dir,['ListRM_' cortex_files{1}(1:2) '_' num2str(setnum) '_' num2str(img)])
         end
     end
 end

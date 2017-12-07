@@ -200,9 +200,9 @@ for d = 1:length(distancethreshold);
     rep_mean_time_between(d) =mean(rep_allSalIOR{d}(:,7)-rep_allSalIOR{d}(:,3));
     rep_std_time_between(d) = std(rep_allSalIOR{d}(:,7)-rep_allSalIOR{d}(:,3));
 end
- 
+ %%
 
-% figure
+figure
 subplot(1,2,1)
 hold on
 errorbar(nov_mean_num_fixations_between,nov_std_num_fixations_between./sqrt(nov_num_fixations))

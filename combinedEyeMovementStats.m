@@ -59,12 +59,12 @@ for file = 1:length(cortex_files)
     %we will not be analyzing data for this image on this session.
     if strcmpi('PW150416_2',cortex_files{file}(1:10))
         viewed(:,1) = 0;
-        imgdur(:,1) = 0;
+        img_dur(:,1) = 0;
     end
         
     %Let's not even look at images in which the monkey looked away more than the
     %image was displayed for. Also should take care of EOG overflow trials
-    viewed(viewed & img_dur > 14000) = 0; %1000 ms buffer for accidental lookaways and cortex timing
+    viewed(viewed & img_dur > 10500) = 0;%was 14000 %1000 ms buffer for accidental lookaways and cortex timing
     imgnum(viewed(1,:) == 0 | viewed(2,:) == 0) = [];
     viewed(:,viewed(1,:) == 0 | viewed(2,:) == 0) = [];
     
@@ -265,20 +265,26 @@ for file = 1:length(cortex_files)
             first_fix_location{2,file}(:,imgnum(novrep)) = rep_fix(:,1);
         end
         
-        nov_x = fixationstats{viewed(1,novrep)}.XY(1,:);
-        nov_y = fixationstats{viewed(1,novrep)}.XY(2,:);
         
-        for sac = 1:size(nov_sactimes,2)
-            sacx = nov_x(nov_sactimes(2,sac)) - nov_x(nov_sactimes(1,sac));
-            sacy = nov_y(nov_sactimes(2,sac)) - nov_y(nov_sactimes(1,sac));
+        for sac = 1:size(nov_fix,2)
+            if sac == 1
+                sacx = nov_fix(1,1)-400;
+                sacy = nov_fix(2,1)-300;
+            else
+                sacx =  nov_fix(1,sac)- nov_fix(1,sac-1);
+                sacy = nov_fix(2,sac)- nov_fix(2,sac-1);
+            end
             nov_trial_by_trial_sacamps(novrep,sac) = sqrt(sacx^2+sacy^2);
         end
         
-        rep_x = fixationstats{viewed(2,novrep)}.XY(1,:);
-        rep_y = fixationstats{viewed(2,novrep)}.XY(2,:);
-        for sac = 1:size(rep_sactimes,2)
-            sacx = rep_x(rep_sactimes(2,sac)) - rep_x(rep_sactimes(1,sac));
-            sacy = rep_y(rep_sactimes(2,sac)) - rep_y(rep_sactimes(1,sac));
+        for sac = 1:size(rep_fix,2)
+            if sac == 1
+                sacx = rep_fix(1,1)-400;
+                sacy = rep_fix(2,1)-300;
+            else
+                sacx =  rep_fix(1,sac)- rep_fix(1,sac-1);
+                sacy = rep_fix(2,sac)- rep_fix(2,sac-1);
+            end
             rep_trial_by_trial_sacamps(novrep,sac) = sqrt(sacx^2+sacy^2);
         end
     end
@@ -289,30 +295,30 @@ for file = 1:length(cortex_files)
     nov_first_dur(file,:) = nov_trial_by_trial_fixdurs(:,1)';
     rep_first_dur(file,:) = rep_trial_by_trial_fixdurs(:,1)';
     
-    nov_median_num_fix = sum(~isnan(nov_trial_by_trial_fixdurs'));
-    nov_median_num_fix(nov_median_num_fix == 0) = [];
-    nov_median_num_fix = round(median(nov_median_num_fix));
-    all_novel_fix_dur(file,1:nov_median_num_fix) = ...
-        nanmean(nov_trial_by_trial_fixdurs(:,1:nov_median_num_fix));
+    nov_mean_num_fix = sum(~isnan(nov_trial_by_trial_fixdurs'));
+    nov_mean_num_fix(nov_mean_num_fix == 0) = [];
+    nov_mean_num_fix = round(mean(nov_mean_num_fix));
+    all_novel_fix_dur(file,1:nov_mean_num_fix) = ...
+        nanmean(nov_trial_by_trial_fixdurs(:,1:nov_mean_num_fix));
     
-    rep_median_num_fix = sum(~isnan(rep_trial_by_trial_fixdurs'));
-    rep_median_num_fix(rep_median_num_fix == 0) = [];
-    rep_median_num_fix = round(median(rep_median_num_fix));
-    all_repeat_fix_dur(file,1:rep_median_num_fix) = ...
-        nanmean(rep_trial_by_trial_fixdurs(:,1:rep_median_num_fix));
+    rep_mean_num_fix = sum(~isnan(rep_trial_by_trial_fixdurs'));
+    rep_mean_num_fix(rep_mean_num_fix == 0) = [];
+    rep_mean_num_fix = round(mean(rep_mean_num_fix));
+    all_repeat_fix_dur(file,1:rep_mean_num_fix) = ...
+        nanmean(rep_trial_by_trial_fixdurs(:,1:rep_mean_num_fix));
     
     
-    nov_median_num_fix = sum(~isnan(nov_trial_by_trial_sacamps'));
-    nov_median_num_fix(nov_median_num_fix == 0) = [];
-    nov_median_num_fix = round(median(nov_median_num_fix));
-    all_novel_sac_amp(file,1:nov_median_num_fix) = ...
-        nanmean(nov_trial_by_trial_sacamps(:,1:nov_median_num_fix));
+    nov_mean_num_fix = sum(~isnan(nov_trial_by_trial_sacamps'));
+    nov_mean_num_fix(nov_mean_num_fix == 0) = [];
+    nov_mean_num_fix = round(mean(nov_mean_num_fix));
+    all_novel_sac_amp(file,1:nov_mean_num_fix) = ...
+        nanmean(nov_trial_by_trial_sacamps(:,1:nov_mean_num_fix));
     
-    rep_median_num_fix = sum(~isnan(rep_trial_by_trial_sacamps'));
-    rep_median_num_fix(rep_median_num_fix == 0) = [];
-    rep_median_num_fix = round(median(rep_median_num_fix));
-    all_repeat_sac_amp(file,1:rep_median_num_fix) = ...
-        nanmean(rep_trial_by_trial_sacamps(:,1:rep_median_num_fix));
+    rep_mean_num_fix = sum(~isnan(rep_trial_by_trial_sacamps'));
+    rep_mean_num_fix(rep_mean_num_fix == 0) = [];
+    rep_mean_num_fix = round(mean(rep_mean_num_fix));
+    all_repeat_sac_amp(file,1:rep_mean_num_fix) = ...
+        nanmean(rep_trial_by_trial_sacamps(:,1:rep_mean_num_fix));
     
     all_novel_fix_durt(file,:) = nanmean(nov_trial_by_trial_fixdurts(:,1:7000)); %fixation durations
     all_repeat_fix_durt(file,:) = nanmean(rep_trial_by_trial_fixdurts(:,1:7000)); %fixation durations
@@ -351,10 +357,10 @@ legend('Novel Images','Repeat Images')
 title([cortex_files{1}(1:2) ' : Fixation Duration over time'])
 %%
 %---Plot Fixation Durations By Fixation Number---%
-nov_median_num_fix = ceil(median(sum(~isnan(all_novel_fix_dur'))));
-rep_median_num_fix = ceil(median(sum(~isnan(all_repeat_fix_dur'))));
-all_novel_fix_dur = all_novel_fix_dur(:,1:nov_median_num_fix);
-all_repeat_fix_dur = all_repeat_fix_dur(:,1:rep_median_num_fix);
+nov_mean_num_fix = ceil(mean(sum(~isnan(all_novel_fix_dur'))));
+rep_mean_num_fix = ceil(mean(sum(~isnan(all_repeat_fix_dur'))));
+all_novel_fix_dur = all_novel_fix_dur(:,1:nov_mean_num_fix);
+all_repeat_fix_dur = all_repeat_fix_dur(:,1:rep_mean_num_fix);
 
 figure
 hold on
@@ -369,10 +375,10 @@ legend('Novel','Repeat')
 title(cortex_files{1}(1:2))
 %%
 %---Plot Saccade Ampltiudes By Saccades Number---%
-nov_median_num_sac = ceil(median(sum(~isnan(all_novel_sac_amp'))));
-rep_median_num_sac = ceil(median(sum(~isnan(all_repeat_sac_amp'))));
-all_novel_sac_amp = all_novel_sac_amp(:,1:nov_median_num_sac)/24;
-all_repeat_sac_amp = all_repeat_sac_amp(:,1:rep_median_num_sac)/24;
+nov_mean_num_sac = ceil(mean(sum(~isnan(all_novel_sac_amp'))));
+rep_mean_num_sac = ceil(mean(sum(~isnan(all_repeat_sac_amp'))));
+all_novel_sac_amp = all_novel_sac_amp(:,1:nov_mean_num_sac)/24;
+all_repeat_sac_amp = all_repeat_sac_amp(:,1:rep_mean_num_sac)/24;
 
 figure
 hold on

@@ -47,8 +47,11 @@ end
 %trial order not which images are displayed that is the item file
 if strcmpi(cortexfile(end-9:end),'PW160325.2') || strcmpi(cortexfile(end-9:end),'PW160329.2') ...
 || strcmpi(cortexfile(end-9:end),'MF170120.2') || strcmpi(cortexfile(end-9:end),'MF170131.2') ...
-|| strcmpi(cortexfile(end-9:end),'MF170213.2')% || strcmpi(cortexfile(end-9:end),'TT150518.2')
+|| strcmpi(cortexfile(end-9:end),'MF170213.2')
     cnd_file = 'ListRM01.cnd';
+elseif strcmpi(cortexfile(end-9:end),'TT150518.2') %not sure what the correct file is 
+    cnd_file = 'ListRM16.cnd';
+    error('Double check everything for this file')
 else
     cnd_file = [item_set(1:end-4) '.cnd'];
 end

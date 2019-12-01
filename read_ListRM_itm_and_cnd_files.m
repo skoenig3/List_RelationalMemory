@@ -4,8 +4,13 @@ function [itmlist,clrchng_locations,first_img_item,imgs] = read_ListRM_itm_and_c
 % are associated with which condition (itmlist) since conditions are randomly
 % organized. 
 
-ITMFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' itmfile];
-CNDFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' cndfile];
+if isempty(strfind(itmfile,'sq'))
+    ITMFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' itmfile];
+    CNDFile = ['C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Item and CND files\' cndfile];
+else
+    ITMFile = ['C:\Users\seth.koenig\Documents\MATLAB\ListSQ\Item and Conditions Files\' itmfile];
+    CNDFile = ['C:\Users\seth.koenig\Documents\MATLAB\ListSQ\Item and Conditions Files\' cndfile];
+end
 
 itmfil=[];
 h =fopen(ITMFile);

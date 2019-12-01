@@ -65,14 +65,14 @@ figure_dir = 'C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Figure
 
 %---Tobii Post Lesion---%
 %lots of sessions skipped b/c tubing issues
-cortex_files = {'TO170404.2','TO170405.2','TO170406.2','TO170407.2',...
-                'TO170410.2','TO170411.2','TO170412.2','TO170414.2',...
-                'TO170419.2','TO170421.2','TO170425.2','TO170426.2',...
-                'TO170427.2','TO170428.2','TO170501.2'};
-item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
-              'ListRM26.itm','ListRM27.itm','ListRM28.itm','ListRM30.itm',...
-              'ListRM33.itm','ListRM35.itm','ListRM36.itm','ListRM37.itm',...
-              'ListRM38.itm','ListRM39.itm','ListRM40.itm'};
+% cortex_files = {'TO170404.2','TO170405.2','TO170406.2','TO170407.2',...
+%                 'TO170410.2','TO170411.2','TO170412.2','TO170414.2',...
+%                 'TO170419.2','TO170421.2','TO170425.2','TO170426.2',...
+%                 'TO170427.2','TO170428.2','TO170501.2'};
+% item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
+%               'ListRM26.itm','ListRM27.itm','ListRM28.itm','ListRM30.itm',...
+%               'ListRM33.itm','ListRM35.itm','ListRM36.itm','ListRM37.itm',...
+%               'ListRM38.itm','ListRM39.itm','ListRM40.itm'};
 
 % cortex_files = {'TT150427.2','TT150428.2','TT150429.2','TT150430.2','TT150501.2',...
 %     'TT150504.2','TT150505.2','TT150506.2','TT150507.2','TT150508.2',...
@@ -82,15 +82,26 @@ item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
 %     'ListRM11.itm','ListRM12.itm','ListRM13.itm','ListRM14.itm','ListRM15.itm'};%,...
 
 %---Manfred Pre-Lesion---%
-% cortex_files = {'MF170111.2','MF170112.2','MF170117.2','MF170118.2',...
-%                 'MF170119.2','MF170120.2','MF170123.2','MF170126.2',...
-%                 'MF170130.2','MF170131.2','MF170201.2','MF170202.2',...
-%                 'MF170209.2','MF170210.2','MF170213.2'};
-% item_files = {'ListRM21.itm','ListRM22.itm','ListRM23.itm','ListRM24.itm',...
-%               'ListRM25.itm','ListRM26.itm','ListRM27.itm','ListRM28.itm',...
-%               'ListRM29.itm','ListRM30.itm','ListRM31.itm','ListRM32.itm',...
-%               'ListRM33.itm','ListRM34.itm','ListRM35.itm'};
+cortex_files = {'MF170111.2','MF170112.2','MF170117.2','MF170118.2',...
+                'MF170119.2','MF170120.2','MF170123.2','MF170126.2',...
+                'MF170130.2','MF170131.2','MF170201.2','MF170202.2',...
+                'MF170209.2','MF170210.2','MF170213.2'};
+item_files = {'ListRM21.itm','ListRM22.itm','ListRM23.itm','ListRM24.itm',...
+              'ListRM25.itm','ListRM26.itm','ListRM27.itm','ListRM28.itm',...
+              'ListRM29.itm','ListRM30.itm','ListRM31.itm','ListRM32.itm',...
+              'ListRM33.itm','ListRM34.itm','ListRM35.itm'};
 
+%---Manfred Post-Lesion---%
+% cortex_files = {'MF180425.2','MF180426.2','MF180427.2','MF180430.2',...
+%                 'MF180501.2','MF180502.2','MF180503.2','MF180504.2',...
+%                 'MF180507.2','MF180508.2','MF180509.2','MF180511.2',...
+%                 'MF180514.2','MF180515.2','MF180516.2','MF180517.2',...
+%                 'MF180518.2','MF180521.2'};
+% item_files = {'ListRM02.itm','ListRM03.itm','ListRM04.itm','ListRM05.itm',...
+%                 'ListRM06.itm','ListRM07.itm','ListRM08.itm','ListRM09.itm',...
+%                 'ListRM10.itm','ListRM11.itm','ListRM12.itm','ListRM14.itm',...
+%                 'ListRM15.itm','ListRM16.itm','ListRM17.itm','ListRM18.itm',...
+%                 'ListRM19.itm','ListRM20.itm'};
 
 
 
@@ -133,45 +144,40 @@ item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
 %             'ListRM11.itm','ListRM12.itm','ListRM13.itm','ListRM14.itm','ListRM15.itm',...
 %             'ListRM16.itm','ListRM17.itm'};
     
-
+%%
 %%%---Preprocess all the ListRM data---%%%
 %figure_dir = 'C:\Users\seth.koenig\Documents\MATLAB\List_RelationalMemory\Figures\Calibration\';
-% for file =length(cortex_files)
+% for file =1:length(cortex_files)%3
 %     ImportListRMData(cortex_files{file},item_files{file},figure_dir,data_dir );
 % end
-%%
-%%%---Check quality ListRM data---%%%
-% make sure had at least 64 "good" (din't look away too much) viewings
-% for file =3%1:length(cortex_files)
+% %%
+% %%%---Check quality ListRM data---%%%
+% % make sure had at least 64 "good" (din't look away too much) viewings
+% for file =[1:length(cortex_files)]
 %     CheckListRMData(data_dir,[cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat']);
 % end
-%%
-%%---Determine Fixation Durations, Saccade Amplitudes, Pupil Diameter Across Multiple Sets---%
-%combinedEyeMovementStats(data_dir,cortex_files)
-%%
-%---Calculate IOR---%
-% for file =1:length(cortex_files)
-%     ListRM_IOR(data_dir,cortex_files{file},image_dir,figure_dir);
-% end
+% %%
+% %%---Determine Fixation Durations, Saccade Amplitudes, Pupil Diameter Across Multiple Sets---%
+% combinedEyeMovementStats(data_dir,cortex_files)
 %%
 %%%---Calculate Percent of Image Explored--%%%
-% for file =1:length(cortex_files)
-%     CalculateCovergeListRMData(data_dir,[cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat']);
-% end
-% disp('Done Coverage')
+for file =1:length(cortex_files)
+    CalculateCovergeListRMData(data_dir,[cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat']);
+end
+disp('Done Coverage')
 
 %%%---Determine Percent of Image Explored Across Multiple Sets---%%%
-% combinedCoverage(data_dir,cortex_files)
-% 
-% %%%---Determine The Similarity in Fixation Locations---%%%
-% for file = 1:length(cortex_files)
-%    DetermineListRMSpatialSimilarity(data_dir,[cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat']) 
-% end
-% disp('Done Similarity')
+combinedCoverage(data_dir,cortex_files)
+
+%%%---Determine The Similarity in Fixation Locations---%%%
+for file = 1:length(cortex_files)
+   DetermineListRMSpatialSimilarity(data_dir,[cortex_files{file}(1:8) '_' cortex_files{file}(end) '-fixation.mat']) 
+end
+disp('Done Similarity')
 
 
 %%%---Determine Similarity Across Multiple Sets---%%%
-% combinedSimilarity(data_dir,cortex_files)
+combinedSimilarity(data_dir,cortex_files)
 
 %%%---Get Salience Maps for each image---%%%
 %only need to run 1 time!
@@ -203,4 +209,4 @@ item_files = {'ListRM22.itm','ListRM23.itm','ListRM24.itm','ListRM25.itm',...
 % disp('Done Salience')
 
 % %%%---Determine Salience at Fixation Locations Across Multiple Sets---%%%
-CombinedSalienceListRM(cortex_files,data_dir,figure_dir)
+% CombinedSalienceListRM(cortex_files,data_dir,figure_dir)

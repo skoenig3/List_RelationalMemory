@@ -20,22 +20,22 @@ imageY = 600;
 samprate = 5;
 %---Import Cortex data file---%
 if strcmpi(cortexfile(1:2),'PW')
-    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Vivian\' cortexfile];
+    cortexfile = ['Z:\Cortex Data\Vivian\' cortexfile];
 elseif strcmpi(cortexfile(1:2),'TT')
-    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Timmy\' cortexfile];
+    cortexfile = ['Z:\Cortex Data\Timmy\' cortexfile];
 elseif strcmpi(cortexfile(1:2),'RR')
-    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Red\' cortexfile];
+    cortexfile = ['Z:\Cortex Data\Red\' cortexfile];
 elseif strcmpi(cortexfile(1:2),'TO')
-    cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Tobii\' cortexfile];
+    cortexfile = ['Z:\Cortex Data\Tobii\' cortexfile];
 elseif  strcmpi(cortexfile(1:2),'MF')
-     cortexfile = ['\\towerexablox.wanprc.org\Buffalo\Cortex Data\Manfred\' cortexfile];
+     cortexfile = ['Z:\Cortex Data\Manfred\' cortexfile];
 end
 
 [time_arr,event_arr,eog_arr,epp_arr,~,~]  = get_ALLdata(cortexfile);
 
 [~,block_1] = find(event_arr == 5001);
 if length(block_1) > 1 %file accidentally appended
-    disp('Multiple Files Appended')
+   disp('Multiple Files Appended')
    event_arr(:,block_1(2):end) = [];
    time_arr(:,block_1(2):end) = [];
    eog_arr(:,block_1(2):end) = [];
@@ -47,7 +47,7 @@ end
 %trial order not which images are displayed that is the item file
 if strcmpi(cortexfile(end-9:end),'PW160325.2') || strcmpi(cortexfile(end-9:end),'PW160329.2') ...
 || strcmpi(cortexfile(end-9:end),'MF170120.2') || strcmpi(cortexfile(end-9:end),'MF170131.2') ...
-|| strcmpi(cortexfile(end-9:end),'MF170213.2')
+|| strcmpi(cortexfile(end-9:end),'MF170213.2') || (strcmpi(cortexfile(end-9:end-8),'MF') && str2double(cortexfile(end-7:end-2)) >= 180425)
     cnd_file = 'ListRM01.cnd';
 elseif strcmpi(cortexfile(end-9:end),'TT150518.2') %not sure what the correct file is 
     cnd_file = 'ListRM16.cnd';
